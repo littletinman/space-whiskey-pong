@@ -1,0 +1,6 @@
+{
+    "title": "Pong",
+    "description": "A minimal pong clone",
+    "image": "200x120-pong-promo.png",
+    "command": "python pong.py"
+  }
