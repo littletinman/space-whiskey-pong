@@ -62,7 +62,7 @@ def update():
     if abs(ball.y) >= (height - 20): ball.vy = -ball.vy
     if abs(ball.y) <= 60: ball.vy = -ball.vy
 
-    if ball.x < 40 and ball.x > 30 and abs(player1.y - ball.y) < 60:
+    if ball.x < 40 and ball.x > 20 and abs(player1.y - ball.y) < 60:
         SPEED = SPEED + 0.2
         ball.x = 40
         ball.vx = SPEED
@@ -76,7 +76,7 @@ def update():
         ball.vy = -SPEED
         player2.score = player2.score + 1
 	
-    if ball.x > (width - 40) and ball.x < (width - 30) and abs(player2.y - ball.y) < 60:
+    if ball.x > (width - 40) and ball.x < (width - 20) and abs(player2.y - ball.y) < 60:
         SPEED = SPEED + 0.5
         ball.x = (width - 40)
         ball.vx = -SPEED
@@ -89,10 +89,6 @@ def update():
         ball.vx = SPEED
         ball.vy = SPEED
         player1.score = player1.score + 1
-
-    if player1.score > 6 or player2.score > 6:
-        pass
-		#print("player " .. (score1 > score2 and 1 or 2) .. " wins.")
 
     for event in pygame.event.get():
         if event.type == QUIT:
