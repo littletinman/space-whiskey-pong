@@ -15,6 +15,8 @@ WHITE = (255, 255, 255)
 ISDOWN = pygame.key.get_pressed()
 BOOL = {True: 1, False: 0}
 SPEED = 3
+GAME_LIMIT = 5
+PLAYER_WON = None
 
 # Screen
 pygame.display.set_caption("Pong")
@@ -44,9 +46,19 @@ player2 = Player(width - 30, height/2, 0)
 def update():
     global running
     global SPEED
+    global PLAYER_WON
 
     pygame.event.pump()
     ISDOWN = pygame.key.get_pressed()
+
+    if player1.score == GAME_LIMIT:
+        running = False
+        PLAYER_WON = 1
+        return
+    elif player2.score == GAME_LIMIT:
+        running = False
+        PLAYER_WON = 2
+        return
 
     player1.y = player1.y + (BOOL[ISDOWN[pygame.K_a]] - BOOL[ISDOWN[pygame.K_q]]) * 7
     player2.y = player2.y + (BOOL[ISDOWN[pygame.K_DOWN]] - BOOL[ISDOWN[pygame.K_UP]]) * 7
@@ -113,6 +125,11 @@ def draw():
     instructions2 = fontSM.render("P2 Keys: UP and DOWN", False, WHITE)
     screen.blit(instructions2, (width - score2.get_size()[0] - 20 - instructions2.get_size()[0], 18))
 
+def drawGameEnd():
+    screen.fill((0,0,0))
+    title = fontLG.render("Player {0} won!".format(PLAYER_WON), False, WHITE)
+    screen.blit(title, (width/2 - title.get_size()[0]/2, 10))
+    pygame.display.flip()
 
 running = True
 while running:
@@ -122,4 +139,6 @@ while running:
     clock.tick(60)
     pygame.display.flip()
 
+drawGameEnd()
 pygame.quit()
+pygame.time.wait(2500)
