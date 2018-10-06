@@ -98,6 +98,8 @@ def draw():
     title = fontLG.render("PONG", False, WHITE)
     screen.blit(title, (width/2 - title.get_size()[0]/2, 10))
 
+    pygame.draw.line(screen, WHITE, (width/2, 40), (width/2, height))
+
     pygame.draw.rect(screen, WHITE, [player1.x, player1.y - 50, 20, 100])
     pygame.draw.rect(screen, WHITE, [player2.x, player2.y - 50, 20, 100])
 
