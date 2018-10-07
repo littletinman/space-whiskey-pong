@@ -2,6 +2,14 @@
 import pygame
 from pygame.locals import *
 from random import randint
+import argparse
+
+# Program input parameters
+parser = argparse.ArgumentParser(description='Game parameters')
+parser.add_argument('-w', dest='window', action='store_true',
+                    default=False, help='Start game in windowed mode')
+
+args = parser.parse_args()
 
 # Initialize Pygame
 pygame.init()
@@ -18,7 +26,12 @@ SPEED = 3
 
 # Screen
 pygame.display.set_caption("Pong")
-screen = pygame.display.set_mode((800, 480), 0, 32)
+# Open screen based on input parametrs
+if args.window:
+    screen = pygame.display.set_mode((800, 480), 0, 32)
+else:
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN, 32)
+
 width, height = pygame.display.get_surface().get_size()
 screen.fill((0,0,0))
 
