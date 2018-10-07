@@ -116,7 +116,7 @@ def draw():
     pygame.draw.rect(screen, WHITE, [player1.x, player1.y - 50, 20, 100])
     pygame.draw.rect(screen, WHITE, [player2.x, player2.y - 50, 20, 100])
 
-    pygame.draw.circle(screen, WHITE, [int(ball.x), int(ball.y)], 10)
+    pygame.draw.rect(screen, WHITE, [int(ball.x), int(ball.y), 10, 10])
 
     score1 = fontLG.render(str(player1.score), False, WHITE)
     screen.blit(score1, (10, 10))
