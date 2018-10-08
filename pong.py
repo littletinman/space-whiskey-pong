@@ -107,6 +107,9 @@ def update():
         if event.type == QUIT:
             running = False
 
+    if ISDOWN[pygame.K_ESCAPE]:
+        running = False
+
 def draw():
     title = fontLG.render("PONG", False, WHITE)
     screen.blit(title, (width/2 - title.get_size()[0]/2, 10))
@@ -128,6 +131,9 @@ def draw():
     instructions2 = fontSM.render("P2 Keys: UP and DOWN", False, WHITE)
     screen.blit(instructions2, (width - score2.get_size()[0] - 20 - instructions2.get_size()[0], 18))
 
+    instructions3 = fontSM.render("Press ESC to Quit", False, WHITE)
+    pos = ((width/2 - title.get_size()[0]/2) - (score1.get_size()[0] - instructions2.get_size()[0]))/2 - instructions3.get_size()[0]/2
+    screen.blit(instructions3, (pos, 18))
 
 running = True
 while running:
