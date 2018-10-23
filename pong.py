@@ -2,6 +2,14 @@
 import pygame
 from pygame.locals import *
 from random import randint
+import argparse
+
+# Program input parameters
+parser = argparse.ArgumentParser(description='Game parameters')
+parser.add_argument('-w', dest='window', action='store_true',
+                    default=False, help='Start game in windowed mode')
+
+args = parser.parse_args()
 
 # Initialize Pygame
 pygame.init()
@@ -18,7 +26,12 @@ SPEED = 3
 
 # Screen
 pygame.display.set_caption("Pong")
-screen = pygame.display.set_mode((800, 480), 0, 32)
+# Open screen based on input parametrs
+if args.window:
+    screen = pygame.display.set_mode((800, 480), 0, 32)
+else:
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN, 32)
+
 width, height = pygame.display.get_surface().get_size()
 screen.fill((0,0,0))
 
@@ -94,9 +107,14 @@ def update():
         if event.type == QUIT:
             running = False
 
+    if ISDOWN[pygame.K_ESCAPE]:
+        running = False
+
 def draw():
     title = fontLG.render("PONG", False, WHITE)
     screen.blit(title, (width/2 - title.get_size()[0]/2, 10))
+
+    pygame.draw.line(screen, WHITE, (width/2, 40), (width/2, height))
 
     pygame.draw.rect(screen, WHITE, [player1.x, player1.y - 50, 20, 100])
     pygame.draw.rect(screen, WHITE, [player2.x, player2.y - 50, 20, 100])
@@ -113,6 +131,9 @@ def draw():
     instructions2 = fontSM.render("P2 Keys: UP and DOWN", False, WHITE)
     screen.blit(instructions2, (width - score2.get_size()[0] - 20 - instructions2.get_size()[0], 18))
 
+    instructions3 = fontSM.render("Press ESC to Quit", False, WHITE)
+    pos = ((width/2 - title.get_size()[0]/2) - (score1.get_size()[0] - instructions2.get_size()[0]))/2 - instructions3.get_size()[0]/2
+    screen.blit(instructions3, (pos, 18))
 
 running = True
 while running:
